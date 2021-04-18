@@ -1,0 +1,85 @@
+django starter steps
+
+1)create a folder where you need to create a project
+2)create a virtual environment by python -m venv environment's name
+3)activate the virtual env by environment's name\Scripts\activate
+4)pip install django
+5)pip install djangorestframework
+6)create a django project by django-admin startproject DjangoAPI (this command will create a project)
+7)run the server by python manage.py runserver //(command)
+8)files:
+db.sqlite3 is a database file used for storing data
+__init__.py says that whether this file should be considered as python module or not.
+settings.py has all the configurations
+urls.py has all the url declarations
+asgi.py is the entry point for asgi compatible web servers
+wsgi.py is the entry point for wsgi compatible web servers
+9) sqlite file to sqllite
+10)enable cors by pip install django-cors-headers and specify corsheaders in settings.py in INSTALLED_APPS, corsheaders.middleware.CorsMiddleware
+11)WHITE LIST THE DOMAINS BY SPECIFYING CORS_ORIGIN_ALLOW_ALL=True
+
+//CREATE DJANGO APP AND MODELS
+
+to create an app python manage.py startapp appname
+
+add appname.classname
+
+add rest_framework
+
+//create models
+
+open models.py
+
+create class ModelName(models.Model):
+
+to create Models in DB cmd: python manage.py makemigrations APP_NAME
+
+to commit changes python manage.py migrate APP_NAME
+
+//create serializers
+
+create a file serializer.py
+
+from rest_framework import serializers
+
+from APP_NAME.models import models 
+
+
+class MODEL_NAMESerializer(serializers.ModelSerializer):
+class Meta:
+model=MODEL_NAME
+fields=(ALL_FIELDS IN MODEL IN QUOTES)
+
+//building api's
+
+open views.py
+
+from django.views.decorators.csrf import csrf_exempt
+
+from rest_framework.parsers import JSONParser
+
+from APP_NAME.models import models present in that file
+
+from APP_NAME.serializer import MODEL_NAME.Serializer
+
+from django.http.response import JSONResponse
+
+
+//Route methods to urls
+
+
+create urls.py in APP
+
+from django.conf.urls import url
+
+
+from EmployeeApp import views
+
+urlpatterns=[
+url(r'^',views.API_NAME),
+]
+
+//map that url to main urls.py
+
+
+from django.conf.urls import url,include
